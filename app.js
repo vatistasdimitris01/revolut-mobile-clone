@@ -88,7 +88,7 @@ function getGenericIcon(name) {
 
 function renderTransactions() {
   transactionsList.innerHTML = transactions.map(tx => `
-    <div class="transaction">
+    <div class="transaction" data-id="${tx.id}">
       <div class="tx-icon ${tx.icon === 'google' ? 'google' : ''}">
         ${tx.icon === 'google' ? getGoogleIcon() : tx.icon === 'apple' ? getAppleIcon() : getGenericIcon(tx.name)}
       </div>
@@ -97,12 +97,30 @@ function renderTransactions() {
         <div class="tx-date">${tx.date}</div>
       </div>
       <div class="tx-amount">${formatMoney(tx.amount)}</div>
+      <button class="tx-delete" data-id="${tx.id}" aria-label="Remove expense" title="Remove">×</button>
     </div>
   `).join("");
+
+  // Attach delete handlers
+  transactionsList.querySelectorAll(".tx-delete").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const id = Number(btn.dataset.id);
+      const tx = transactions.find(t => t.id === id);
+      if (!tx) return;
+      // restore balance if it was an expense (negative amount)
+      if (tx.amount < 0) {
+        balance += Math.abs(tx.amount);
+      }
+      transactions = transactions.filter(t => t.id !== id);
+      renderBalance();
+      renderTransactions();
+      save();
+    });
+  });
 }
 
 function init() {
-  // Load from localStorage if available
   const saved = localStorage.getItem("revolut-clone-data");
   if (saved) {
     try {
@@ -120,11 +138,6 @@ function save() {
 }
 
 // ========== EVENTS ==========
-document.getElementById("edit-balance-btn").addEventListener("click", () => {
-  document.getElementById("balance-input").value = balance;
-  balanceModal.classList.remove("hidden");
-});
-
 document.getElementById("cancel-balance").addEventListener("click", () => {
   balanceModal.classList.add("hidden");
 });
@@ -195,12 +208,10 @@ document.getElementById("save-expense").addEventListener("click", () => {
   });
 });
 
-// Prevent zoom on double tap etc.
 document.addEventListener("gesturestart", e => e.preventDefault());
 
 init();
 
-// Register service worker for PWA
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js").catch(() => {});
 }
