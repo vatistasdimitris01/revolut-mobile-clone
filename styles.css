@@ -266,7 +266,7 @@ body {
   color: rgba(255,255,255,0.75);
 }
 
-/* ========== BOTTOM NAV - match image, bigger, no text ========== */
+/* ========== BOTTOM NAV ========== */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -283,7 +283,6 @@ body {
   background: transparent;
 }
 
-/* Bell centered in the middle bottom */
 .nav-bell {
   width: 48px;
   height: 48px;
@@ -299,7 +298,6 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
-/* Main pill - bigger, matches the screenshot style */
 .nav-pill {
   display: flex;
   align-items: center;
@@ -331,7 +329,6 @@ body {
   color: #fff;
 }
 
-/* The dark rounded Home section on the left like the image */
 .home-circle {
   width: 52px;
   height: 52px;
@@ -475,6 +472,11 @@ body {
 .full-btn.secondary {
   background: transparent;
   color: rgba(255,255,255,0.4);
+}
+
+.full-btn.danger {
+  background: rgba(180, 40, 40, 0.35);
+  color: #ff8a8a;
 }
 
 /* Mobile only */
