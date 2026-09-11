@@ -101,14 +101,12 @@ function renderTransactions() {
     </div>
   `).join("");
 
-  // Attach delete handlers
   transactionsList.querySelectorAll(".tx-delete").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
       const id = Number(btn.dataset.id);
       const tx = transactions.find(t => t.id === id);
       if (!tx) return;
-      // restore balance if it was an expense (negative amount)
       if (tx.amount < 0) {
         balance += Math.abs(tx.amount);
       }
@@ -156,6 +154,23 @@ document.getElementById("customise-btn").addEventListener("click", () => {
   customisePanel.classList.remove("hidden");
 });
 
+document.getElementById("reset-cache-btn").addEventListener("click", async () => {
+  localStorage.removeItem("revolut-clone-data");
+  if ("caches" in window) {
+    try {
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    } catch (e) {}
+  }
+  if ("serviceWorker" in navigator) {
+    try {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r => r.unregister()));
+    } catch (e) {}
+  }
+  window.location.reload(true);
+});
+
 document.getElementById("close-customise").addEventListener("click", () => {
   customisePanel.classList.add("hidden");
 });
@@ -201,7 +216,6 @@ document.getElementById("save-expense").addEventListener("click", () => {
   expenseModal.classList.add("hidden");
 });
 
-// Close modals on backdrop click
 [balanceModal, expenseModal, customisePanel].forEach(modal => {
   modal.addEventListener("click", (e) => {
     if (e.target === modal) modal.classList.add("hidden");
