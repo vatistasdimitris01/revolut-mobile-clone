@@ -60,7 +60,7 @@ body {
 /* ========== APP ========== */
 #app {
   min-height: 100dvh;
-  padding-bottom: 90px;
+  padding-bottom: 100px;
   position: relative;
   background: #000;
 }
@@ -266,7 +266,7 @@ body {
   color: rgba(255,255,255,0.75);
 }
 
-/* ========== BOTTOM NAV - minimal, tiny, pure black ========== */
+/* ========== BOTTOM NAV - Apple style, clean ========== */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -275,44 +275,29 @@ body {
   width: 100%;
   max-width: 430px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 6px;
-  padding: 6px 16px calc(18px + env(safe-area-inset-bottom, 0px));
+  padding: 10px 20px calc(20px + env(safe-area-inset-bottom, 0px));
   z-index: 100;
   background: transparent;
-}
-
-.nav-bell {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #000;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  order: -1;
-}
-
-.nav-bell svg {
-  width: 14px;
-  height: 14px;
+  pointer-events: none;
 }
 
 .nav-pill {
+  pointer-events: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background: #000;
-  border-radius: 22px;
-  padding: 3px 6px 3px 3px;
-  gap: 0;
-  border: 1px solid rgba(255,255,255,0.1);
-  width: 160px;
-  height: 38px;
+  justify-content: space-around;
+  background: rgba(28, 28, 30, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 28px;
+  padding: 6px 8px;
+  gap: 4px;
+  border: 0.5px solid rgba(255,255,255,0.12);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  width: 240px;
+  height: 56px;
 }
 
 .nav-item {
@@ -321,11 +306,12 @@ body {
   justify-content: center;
   background: none;
   border: none;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.55);
   cursor: pointer;
   padding: 0;
   flex: 1;
   height: 100%;
+  transition: color 0.2s ease;
 }
 
 .nav-item.active {
@@ -333,34 +319,35 @@ body {
 }
 
 .home-circle {
-  width: 32px;
-  height: 32px;
-  border-radius: 16px;
-  background: #000;
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: #1c1c1e;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 0.5px solid rgba(255,255,255,0.15);
 }
 
 .nav-item.active .home-circle {
-  background: #000;
-  border-color: rgba(255,255,255,0.3);
+  background: #2c2c2e;
+  border-color: rgba(255,255,255,0.22);
 }
 
 .r-logo {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   color: #fff;
   line-height: 1;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 
 .nav-item svg {
-  width: 14px;
-  height: 14px;
-  opacity: 0.85;
+  width: 22px;
+  height: 22px;
+  opacity: 1;
+  stroke-width: 1.8;
 }
 
 /* Delete expense button */
