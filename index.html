@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Revolut">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <title>Revolut</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="loader-logo">
+      <svg viewBox="0 0 100 100" width="80" height="80">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="url(#grad)" stroke-width="6"/>
+        <text x="50" y="62" text-anchor="middle" font-size="42" font-weight="700" fill="white" font-family="system-ui">R</text>
+        <defs>
+          <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00d4ff"/>
+            <stop offset="50%" stop-color="#7b2ff7"/>
+            <stop offset="100%" stop-color="#ff2d95"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" class="hidden">
+    <!-- Status bar spacer for notches -->
+    <div class="status-bar-spacer"></div>
+
+    <!-- Top Header -->
+    <header class="top-header">
+      <div class="profile-pic" id="profile-pic"></div>
+      <div class="search-bar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <span>Search</span>
+      </div>
+      <div class="header-icons">
+        <button class="icon-btn" aria-label="Stats">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="3" y="12" width="4" height="9" rx="1"/><rect x="10" y="7" width="4" height="14" rx="1"/><rect x="17" y="3" width="4" height="18" rx="1"/>
+          </svg>
+        </button>
+        <button class="icon-btn" aria-label="Cards">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Balance Section -->
+    <section class="balance-section">
+      <p class="account-label">Main account</p>
+      <h1 class="balance" id="balance-display">1,14 €</h1>
+      <button class="edit-balance-btn" id="edit-balance-btn" title="Edit balance">✎</button>
+    </section>
+
+    <!-- Action Buttons -->
+    <section class="actions">
+      <button class="action-btn">
+        <div class="action-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+        </div>
+        <span>Request</span>
+      </button>
+      <button class="action-btn">
+        <div class="action-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </div>
+        <span>Send</span>
+      </button>
+      <button class="action-btn">
+        <div class="action-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </div>
+        <span>Share link</span>
+      </button>
+      <button class="action-btn" id="customise-btn">
+        <div class="action-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+        </div>
+        <span>Customise</span>
+      </button>
+    </section>
+
+    <!-- Transactions -->
+    <section class="transactions-card">
+      <div id="transactions-list">
+        <!-- Dynamic transactions go here -->
+      </div>
+      <button class="show-all-btn">Show all</button>
+    </section>
+
+    <!-- Challenges -->
+    <section class="challenges">
+      <div class="challenges-header">
+        <span>Challenges</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button class="nav-item active">
+        <div class="nav-icon home-icon">
+          <span class="r-logo">R</span>
+        </div>
+        <span>Home</span>
+      </button>
+      <button class="nav-item">
+        <div class="nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M7 17l5-5-5-5M13 17l5-5-5-5"/>
+          </svg>
+        </div>
+        <span>Payments</span>
+      </button>
+      <button class="nav-item">
+        <div class="nav-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+          </svg>
+        </div>
+        <span>Save</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Edit Balance Modal -->
+  <div id="balance-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Set Balance</h3>
+      <input type="number" id="balance-input" step="0.01" placeholder="1.14" inputmode="decimal">
+      <div class="modal-actions">
+        <button id="cancel-balance">Cancel</button>
+        <button id="save-balance" class="primary">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Expense Modal -->
+  <div id="expense-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Add Expense</h3>
+      <input type="text" id="expense-name" placeholder="e.g. Food, OpenAI membership">
+      <input type="number" id="expense-amount" step="0.01" placeholder="Amount (€)" inputmode="decimal">
+      <div class="modal-actions">
+        <button id="cancel-expense">Cancel</button>
+        <button id="save-expense" class="primary">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customise Panel (quick add expense) -->
+  <div id="customise-panel" class="modal hidden">
+    <div class="modal-content">
+      <h3>Customise</h3>
+      <button id="add-expense-btn" class="full-btn">+ Add custom expense</button>
+      <button id="edit-balance-from-panel" class="full-btn">✎ Edit balance</button>
+      <button id="close-customise" class="full-btn secondary">Close</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
